@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRL Purchases - Purchase Order Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🛒 CRL Purchases</h1>
+            <p class="subtitle">Purchase Order & Invoice Management System</p>
+        </header>
+
+        <nav class="nav-buttons">
+            <button class="btn btn-primary" onclick="showSection('upload')">📤 Upload Order</button>
+            <button class="btn btn-primary" onclick="showSection('invoice')">📋 Upload Invoice</button>
+            <button class="btn btn-success" onclick="showSection('check')">✓ Check Orders</button>
+        </nav>
+
+        <!-- Section: Upload Order -->
+        <section id="upload" class="section hidden">
+            <h2>📄 Upload Order PDF</h2>
+            <p class="info-text">
+                Carga un archivo PDF con la información de la orden.<br>
+                <strong>El PDF debe contener:</strong> Order #, Order Date, Material, Description, Quantity Total, PO#
+            </p>
+            
+            <div class="upload-area" id="uploadArea" ondrop="handleDropOrder(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                <input type="file" id="orderFile" accept=".pdf" onchange="uploadOrder(event)">
+                <label for="orderFile">
+                    <span class="upload-icon">📁</span>
+                    <span>Haz clic para seleccionar o arrastra tu archivo PDF aquí</span>
+                </label>
+            </div>
+
+            <div id="uploadStatus" class="upload-status hidden">
+                <div class="status-content"></div>
+            </div>
+        </section>
+
+        <!-- Section: Upload Invoice -->
+        <section id="invoice" class="section hidden">
+            <h2>📄 Upload Invoice PDF</h2>
+            <p class="info-text">
+                Carga un archivo PDF con la información de la factura.<br>
+                <strong>El PDF debe contener:</strong> Sales Order, Date Shipped, Customer PO, Product Number, Product Description, Quantity Shipped, Quantity Order, Extension
+            </p>
+            
+            <div class="upload-area" id="invoiceArea" ondrop="handleDropInvoice(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                <input type="file" id="invoiceFile" accept=".pdf" onchange="uploadInvoice(event)">
+                <label for="invoiceFile">
+                    <span class="upload-icon">📁</span>
+                    <span>Haz clic para seleccionar o arrastra tu archivo PDF aquí</span>
+                </label>
+            </div>
+
+            <div id="invoiceStatus" class="upload-status hidden">
+                <div class="status-content"></div>
+            </div>
+        </section>
+
+        <!-- Section: Check Orders -->
+        <section id="check" class="section hidden">
+            <h2>✓ Check Orders</h2>
+            <div class="check-buttons">
+                <button class="btn btn-info" onclick="showPrintOrders()">📊 Print Orders</button>
+                <button class="btn btn-info" onclick="showPrintInvoices()">📄 Print Invoices</button>
+                <button class="btn btn-warning" onclick="showAnalyzeOrders()">🔍 Analyze Orders</button>
+            </div>
+        </section>
+
+        <!-- Section: Print Orders -->
+        <section id="printOrders" class="section hidden">
+            <h2>📊 Orders List</h2>
+            <button class="btn btn-secondary" onclick="showSection('check')">← Back</button>
+            <button class="btn btn-download" onclick="downloadPDF('orders')">📥 Download PDF</button>
+            <div id="ordersTable" class="table-container"></div>
+        </section>
+
+        <!-- Section: Print Invoices -->
+        <section id="printInvoices" class="section hidden">
+            <h2>📄 Invoices List</h2>
+            <button class="btn btn-secondary" onclick="showSection('check')">← Back</button>
+            <button class="btn btn-download" onclick="downloadPDF('invoices')">📥 Download PDF</button>
+            <div id="invoicesTable" class="table-container"></div>
+        </section>
+
+        <!-- Section: Analyze Orders -->
+        <section id="analyzeOrders" class="section hidden">
+            <h2>🔍 Analyze Orders</h2>
+            <button class="btn btn-secondary" onclick="showSection('check')">← Back</button>
+            
+            <div class="search-section">
+                <input type="text" id="orderSearch" placeholder="Ingresa Order # para analizar" class="search-input">
+                <button class="btn btn-primary" onclick="analyzeOrder()">🔍 Analizar</button>
+            </div>
+
+            <div id="analysisResult" class="analysis-result hidden"></div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
