@@ -1,0 +1,11 @@
+{
+  "name": "crl-purchases",
+  "description": "CRL Purchases - Purchase Order and Invoice Management System",
+  "repository": "https://github.com/farevalo78/crl-purchases",
+  "keywords": ["purchases", "orders", "invoices", "pdf"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

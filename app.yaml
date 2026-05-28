@@ -1,0 +1,11 @@
+runtime: nodejs18
+env: standard
+
+handlers:
+- url: /api/*
+  script: auto
+  secure: always
+- url: /.*
+  static_files: public/index.html
+  upload: public/.*
+  secure: always
